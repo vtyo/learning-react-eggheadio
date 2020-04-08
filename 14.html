@@ -1,0 +1,40 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types/prop-types.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+  <script type="text/babel">
+    const rootElement = document.getElementById('root')
+
+    function UsernameForm() {
+      const usernameInputRef = React.useRef()
+      function handleSubmit(event) {
+        event.preventDefault()
+
+        const username = event.target.elements.usernameInput.value
+        //const username = usernameInputRef.current.value
+        
+        alert(`You entered: ${username}`)
+      }
+      
+      return (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="usernameInput">Username:</label>
+            <input ref={usernameInputRef} id="usernameInput" type="text" />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      )
+    }
+
+
+    function App() {
+      return <UsernameForm />
+    }
+
+    ReactDOM.render(<App />, rootElement)
+
+  </script>
+</body>
