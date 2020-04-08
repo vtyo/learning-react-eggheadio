@@ -1,0 +1,53 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types/prop-types.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+  <script type="text/babel">
+    const rootElement = document.getElementById('root')
+
+    const allItems = [
+      {id: 'a', value: 'apple'},
+      {id: 'o', value: 'orange'},
+      {id: 'g', value: 'grape'},
+      {id: 'p', value: 'pear'},
+    ]
+
+
+    function App() {
+      const [items, setitems] = React.useState(allItems)
+
+      function addItem() {
+        setitems([...items, allItems.find(i => !items.includes(i))])
+      }
+
+      function removeItem(item) {
+        setitems(items.filter(i => i !== item))
+      }
+
+      return (
+        <div>
+          <button
+            disabled={items.length >= allItems.length}
+            onClick={addItem}
+          >
+            add item
+          </button> 
+          <ul style={{listStyle: 'none', paddingLeft: 0}}>
+            {items.map(item => (  
+              <li key={item.id}>
+                <button onClick={() => removeItem(item)}>remove</button>
+                <label htmlFor={`${item.value}-input`}>{item.value}</label>
+                <input id={`${item.value}-input`} defaultValue={item.value}/>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    ReactDOM.render(<App />, rootElement)
+
+  </script>
+</body>
